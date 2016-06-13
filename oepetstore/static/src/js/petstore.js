@@ -1,13 +1,21 @@
-openerp.oepetstore = function(instance, local) {
-    var _t = instance.web._t,
-        _lt = instance.web._lt;
-    var QWeb = instance.web.qweb;
+odoo.define('oepetstore.petstore', function (require) {
+"use strict";
 
-    local.HomePage = instance.Widget.extend({
-        start: function() {
-            console.log("pet store home page loaded");
+    var core = require('web.core');
+    var utils = require('web.utils');
+    var Widget = require('web.Widget');
+    var Model = require('web.Model');
+
+    var round_pr = utils.round_precision;
+    var QWeb     = core.qweb;
+
+    var HomePage = Widget.extend({
+        start: function () {
+            this.$el.append("<div>Are you sure you want to perform this action?</div>" +
+            "<button class='ok_button'>Ok</button>" +
+            "<button class='cancel_button'>Cancel</button>");
         },
     });
 
-    instance.web.client_actions.add('petstore.homepage', 'instance.oepetstore.HomePage');
-}
+    core.action_registry.add('petstore.homepage', HomePage);
+});
